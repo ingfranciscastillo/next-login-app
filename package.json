@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.40.0",
+    "jose": "^6.0.10",
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
