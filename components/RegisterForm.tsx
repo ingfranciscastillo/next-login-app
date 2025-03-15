@@ -1,9 +1,13 @@
+"use client";
+import { signUp } from "@/app/actions";
 import Link from "next/link";
-import React from "react";
+import React, { useActionState } from "react";
 
 const RegisterForm = () => {
+  const [state, action, pending] = useActionState(signUp);
+
   return (
-    <form className="space-y-4">
+    <form action={action} className="space-y-4">
       <div>
         <p className="mb-2">Full Name</p>
         <label className="input validator w-full">
@@ -138,8 +142,8 @@ const RegisterForm = () => {
           At least one uppercase letter
         </p>
       </div>
-      <button className="btn btn-block" type="submit">
-        Create account
+      <button className="btn btn-block" type="submit" disabled={pending}>
+        {pending ? "Loading..." : "Create Account"}
       </button>
     </form>
   );

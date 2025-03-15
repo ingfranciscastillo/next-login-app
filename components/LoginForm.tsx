@@ -1,9 +1,14 @@
+"use client";
+
+import { signIn } from "@/app/actions";
 import Link from "next/link";
-import React from "react";
+import React, { useActionState } from "react";
 
 const LoginForm = () => {
+  const [state, action, pending] = useActionState(signIn);
+
   return (
-    <form className="space-y-4">
+    <form action={action} className="space-y-4">
       <div>
         <p className="mb-2">Email</p>
         <label className="input validator w-full">
@@ -23,7 +28,12 @@ const LoginForm = () => {
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
             </g>
           </svg>
-          <input type="email" placeholder="mail@site.com" required />
+          <input
+            name="email"
+            type="email"
+            placeholder="mail@site.com"
+            required
+          />
         </label>
         <div className="validator-hint hidden">Enter valid email address</div>
       </div>
@@ -55,6 +65,7 @@ const LoginForm = () => {
             </g>
           </svg>
           <input
+            name="password"
             type="password"
             required
             placeholder="Password"
@@ -77,8 +88,8 @@ const LoginForm = () => {
         <input type="checkbox" defaultChecked className="checkbox" />
         Remember me
       </label>
-      <button className="btn btn-block" type="submit">
-        Sign in
+      <button className="btn btn-block" type="submit" disabled={pending}>
+        {pending ? "Signing in..." : "Sign in"}
       </button>
     </form>
   );

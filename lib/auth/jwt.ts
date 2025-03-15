@@ -14,7 +14,7 @@ export type UserJwtPayload = {
 };
 
 export async function createJwtToken(payload: UserJwtPayload): Promise<string> {
-  const token = new SignJWT(payload)
+  const token = await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(TOKEN_EXPIRATION)
