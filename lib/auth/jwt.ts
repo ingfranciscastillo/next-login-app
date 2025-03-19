@@ -14,13 +14,11 @@ export type UserJwtPayload = {
 };
 
 export async function createJwtToken(payload: UserJwtPayload): Promise<string> {
-  const token = await new SignJWT(payload)
+  return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(TOKEN_EXPIRATION)
     .sign(secretKey);
-
-  return token;
 }
 
 export const verifyJwt = async (

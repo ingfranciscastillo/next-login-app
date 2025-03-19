@@ -4,6 +4,7 @@ import { hashPassword } from "@/lib/auth/password";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { LoginSchema, registerSchema } from "@/lib/schemas";
+import { createSession } from "@/lib/session";
 
 export async function signUp(state, formData) {
   // Validate the fields
@@ -25,7 +26,7 @@ export async function signUp(state, formData) {
   // create user
   const hashedPassword = hashPassword(password);
 
-  const [data] = await db
+  const [user] = await db
     .insert(users)
     .values({
       name: name,
@@ -37,6 +38,7 @@ export async function signUp(state, formData) {
     });
 
   // create session
+  await createSession(user.id);
 }
 
 export async function signIn(state, formData) {}
